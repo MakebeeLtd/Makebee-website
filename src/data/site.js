@@ -40,7 +40,7 @@ export const visibleNavItems = navItems.filter((item) => Boolean(item.href));
 export const snapshot = [
   { value: 'Studio + product', label: 'Client work alongside products we own' },
   { value: 'Studie AI', label: 'Our flagship product, built and run in-house' },
-  { value: 'Lagos', label: 'Where we’re based — building for wider markets' },
+  { value: 'Lagos', label: 'Where we’re based and building for wider markets' },
 ];
 
 export const whatWeDo = [
@@ -65,6 +65,6 @@ export const aboutPoints = [
   },
   {
     title: 'Built from Nigeria, for real problems',
-    body: 'We work within the constraints of the markets we know — patchy networks, price-sensitive users — and build to a standard that holds up anywhere.',
+    body: 'We work within the constraints of the markets we know well: patchy networks, price-sensitive usersand build to a standard that holds up anywhere.',
   },
 ];

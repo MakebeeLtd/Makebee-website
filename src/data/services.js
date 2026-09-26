@@ -9,7 +9,7 @@ export const services = [
     icon: 'product',
     title: 'Product Development',
     description:
-      'From first sketch to launch and the releases after it — scoping, design, build and iteration.',
+      'From first sketch to launch and the releases after it scoping, design, build and iteration.',
     includes: ['Discovery and scoping', 'Interface and UX design', 'MVP build', 'Iteration after launch'],
   },
   {
@@ -25,7 +25,7 @@ export const services = [
     icon: 'ai',
     title: 'AI Solutions',
     description:
-      'Document search, assistants and content generation — scoped to problems where AI actually helps.',
+      'Document search, assistants and content generation,scoped to problems where AI actually helps.',
     includes: ['Document search and Q&A', 'Assistants', 'Content generation', 'AI features in existing products'],
   },
   {
