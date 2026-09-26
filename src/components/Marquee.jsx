@@ -35,7 +35,7 @@ export default function Marquee({ items, label }) {
 
   return (
     <div className="relative flex items-center">
-      <div className="marquee min-w-0 flex-1 overflow-hidden" data-paused={paused}>
+      {/* <div className="marquee min-w-0 flex-1 overflow-hidden" data-paused={paused}>
         <div className="marquee-track">
           <Group items={items} />
           <Group items={items} hidden />
@@ -49,7 +49,7 @@ export default function Marquee({ items, label }) {
         className="marquee-control mr-3 grid h-8 w-8 shrink-0 place-items-center rounded-full border border-line text-muted transition-colors hover:border-gold-deep hover:text-gold-label sm:mr-5"
       >
         {paused ? <PlayIcon /> : <PauseIcon />}
-      </button>
+      </button> */}
     </div>
   );
 }
