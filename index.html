@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+
+    <!-- Theme is resolved before first paint so there is no flash of the wrong palette.
+         Order: saved choice → explicit system light preference → dark (brand default). -->
+    <script>
+      (function () {
+        document.documentElement.classList.add('js');
+        var theme = 'dark';
+        try {
+          var saved = localStorage.getItem('makebee-theme');
+          if (saved === 'light' || saved === 'dark') theme = saved;
+          else if (window.matchMedia('(prefers-color-scheme: light)').matches) theme = 'light';
+        } catch (e) {}
+        document.documentElement.setAttribute('data-theme', theme);
+      })();
+    </script>
+
+    <title>Makebee — Software Product Studio</title>
+    <meta name="description" content="Makebee is a software product studio building digital products, software systems, AI solutions, and business automation." />
+    <link rel="canonical" href="%VITE_SITE_URL%/" />
+    <meta name="theme-color" content="#0A1324" />
+    <meta name="color-scheme" content="dark light" />
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Makebee" />
+    <meta property="og:title" content="Makebee — Software Product Studio" />
+    <meta property="og:description" content="We design and build digital products, software systems, AI solutions and business automation. Based in Lagos, Nigeria." />
+    <meta property="og:url" content="%VITE_SITE_URL%/" />
+    <meta property="og:image" content="%VITE_SITE_URL%/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Makebee logo on a midnight navy background with the line: Products that make ideas real." />
+    <meta property="og:locale" content="en_NG" />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Makebee — Software Product Studio" />
+    <meta name="twitter:description" content="We design and build digital products, software systems, AI solutions and business automation." />
+    <meta name="twitter:image" content="%VITE_SITE_URL%/og-image.png" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Makebee",
+        "url": "%VITE_SITE_URL%/",
+        "logo": "%VITE_SITE_URL%/apple-touch-icon.png",
+        "email": "makebee.tech@gmail.com",
+        "address": { "@type": "PostalAddress", "addressLocality": "Lagos", "addressCountry": "NG" }
+      }
+    </script>
+  </head>
+  <body>
+    <noscript>
+      <div style="padding:24px;font-family:system-ui,sans-serif;background:#0A1324;color:#F8FAFC">
+        Makebee is a software product studio in Lagos, Nigeria. This site needs JavaScript.
+        Reach us at <a href="mailto:makebee.tech@gmail.com" style="color:#EFCE63">makebee.tech@gmail.com</a>.
+      </div>
+    </noscript>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
