@@ -44,7 +44,7 @@ export default function Services() {
         const q = gsap.utils.selector(sectionRef);
         gsap.from(q('.svc-intro')[0].children, {
           y: 24,
-          autoAlpha: 0,
+          opacity: 0,
           stagger: 0.1,
           ease: 'power2.out',
           scrollTrigger: { trigger: sectionRef.current, start: 'top 90%', end: 'top 55%', scrub: 0.5 },
@@ -52,7 +52,7 @@ export default function Services() {
         q('.svc-slide').forEach((slide) => {
           gsap.from(slide, {
             y: 28,
-            autoAlpha: 0.2,
+            opacity: 0,
             ease: 'power2.out',
             scrollTrigger: { trigger: slide, start: 'top 95%', end: 'top 70%', scrub: 0.5 },
           });
@@ -80,15 +80,17 @@ export default function Services() {
         const [stage] = q('.svc-stage');
 
         // ---- Resting state: service 1 visible, 2–5 waiting "below the mask" ----
-        gsap.set(slides, { autoAlpha: 0 });
-        gsap.set(slides[0], { autoAlpha: 1 });
+        // opacity (not autoAlpha/visibility) keeps every service in the accessibility tree,
+        // so screen readers and heading navigation reach all five while the section is pinned.
+        gsap.set(slides, { opacity: 0, pointerEvents: 'none' });
+        gsap.set(slides[0], { opacity: 1, pointerEvents: 'auto' });
         gsap.set(titles.slice(1), { yPercent: 110 });
-        gsap.set(bodies.slice(1), { y: 28, autoAlpha: 0 });
+        gsap.set(bodies.slice(1), { y: 28, opacity: 0 });
         gsap.set(frames.slice(1), { scale: 1.14, rotation: 12, autoAlpha: 0 });
         gsap.set(rings.slice(1), { scale: 1.3, autoAlpha: 0 });
         gsap.set(fronts.slice(1), { scale: 0.82, y: 16, autoAlpha: 0 });
-        gsap.set(items, { autoAlpha: INACTIVE });
-        gsap.set(items[0], { autoAlpha: 1 });
+        gsap.set(items, { opacity: INACTIVE });
+        gsap.set(items[0], { opacity: 1 });
         gsap.set(fill, { scaleY: 1 / total, transformOrigin: 'top center' });
 
         // ---- Entrance (before the pin): heading block and stage are revealed by scroll.
@@ -103,7 +105,7 @@ export default function Services() {
               scrub: 0.6,
             },
           })
-          .from(intro.children, { y: 36, autoAlpha: 0, stagger: 0.12, ease: 'power3.out' })
+          .from(intro.children, { y: 36, opacity: 0, stagger: 0.12, ease: 'power3.out' })
           .fromTo(
             stage,
             { clipPath: 'inset(10% 6% 10% 6% round 18px)', y: 40 },
@@ -122,23 +124,23 @@ export default function Services() {
 
           // Outgoing service: title slides up out of its mask, copy lifts away, visual recedes.
           tl.to(titles[prev], { yPercent: -110, duration: 0.55, ease: 'power2.in' }, at)
-            .to(bodies[prev], { y: -22, autoAlpha: 0, duration: 0.45, stagger: 0.04, ease: 'power2.in' }, at)
+            .to(bodies[prev], { y: -22, opacity: 0, duration: 0.45, stagger: 0.04, ease: 'power2.in' }, at)
             .to(frames[prev], { scale: 0.86, rotation: -12, autoAlpha: 0, duration: 0.7 }, at)
             .to(rings[prev], { scale: 0.8, autoAlpha: 0, duration: 0.7 }, at)
             .to(fronts[prev], { scale: 0.85, y: -16, autoAlpha: 0, duration: 0.5, ease: 'power2.in' }, at)
-            .set(slides[prev], { autoAlpha: 0 }, at + TRANSITION * 0.8)
+            .set(slides[prev], { opacity: 0, pointerEvents: 'none' }, at + TRANSITION * 0.8)
 
             // Incoming service: same direction of travel, arriving from below.
-            .set(slides[i], { autoAlpha: 1 }, at)
+            .set(slides[i], { opacity: 1, pointerEvents: 'auto' }, at)
             .to(frames[i], { scale: 1, rotation: 0, autoAlpha: 1, duration: 0.8, ease: 'power3.out' }, at + 0.2)
             .to(rings[i], { scale: 1, autoAlpha: 1, duration: 0.8, ease: 'power3.out' }, at + 0.15)
             .to(fronts[i], { scale: 1, y: 0, autoAlpha: 1, duration: 0.6, ease: 'power3.out' }, at + 0.4)
             .to(titles[i], { yPercent: 0, duration: 0.65, ease: 'power3.out' }, at + 0.35)
-            .to(bodies[i], { y: 0, autoAlpha: 1, duration: 0.55, stagger: 0.07, ease: 'power3.out' }, at + 0.45)
+            .to(bodies[i], { y: 0, opacity: 1, duration: 0.55, stagger: 0.07, ease: 'power3.out' }, at + 0.45)
 
             // Index list and progress rail follow the active service.
-            .to(items[prev], { autoAlpha: INACTIVE, duration: 0.5 }, at)
-            .to(items[i], { autoAlpha: 1, duration: 0.5 }, at + 0.3)
+            .to(items[prev], { opacity: INACTIVE, duration: 0.5 }, at)
+            .to(items[i], { opacity: 1, duration: 0.5 }, at + 0.3)
             .to(fill, { scaleY: (i + 1) / total, duration: TRANSITION }, at)
             .addLabel(`s${i}`, at + TRANSITION);
         }
@@ -213,7 +215,10 @@ export default function Services() {
       });
 
       // Web fonts change text heights after first layout; recompute trigger positions once they land.
-      document.fonts?.ready.then(() => ScrollTrigger.refresh());
+      // (Only when fonts are still loading — an extra full refresh is an avoidable long task.)
+      if (document.fonts && document.fonts.status !== 'loaded') {
+        document.fonts.ready.then(() => ScrollTrigger.refresh());
+      }
     },
     // useGSAP scopes selectors to this section and reverts the matchMedia (and so every
     // animation and ScrollTrigger above) on unmount — no manual kill() calls needed.

@@ -65,6 +65,6 @@ export const aboutPoints = [
   },
   {
     title: 'Built from Nigeria, for real problems',
-    body: 'We work within the constraints of the markets we know well: patchy networks, price-sensitive usersand build to a standard that holds up anywhere.',
+    body: 'We work within the constraints of the markets we know well: patchy networks and price-sensitive users. We build to a standard that holds up anywhere.',
   },
 ];

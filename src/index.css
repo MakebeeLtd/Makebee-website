@@ -242,6 +242,8 @@ html.theme-switching *::after {
 }
 .hex-field--drift svg {
   animation: hex-drift 40s linear infinite;
+  /* own compositor layer: the drift runs off the main thread instead of re-styling every frame */
+  will-change: transform;
 }
 
 /* Pointer highlight (driven by hooks/useHexPointer.js). Subtle by design: a honey
@@ -284,6 +286,7 @@ html.theme-switching *::after {
   mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 84 96'%3E%3Cpath d='M42 .6 83.4 24.3v47.4L42 95.4.6 71.7V24.3Z' fill='none' stroke='%23000' stroke-width='1.6'/%3E%3C/svg%3E")
     center / 100% 100% no-repeat;
   animation: tile-pop 3.2s ease-in-out infinite;
+  will-change: transform; /* ~50 tiny layers; keeps the ripple off the main thread */
   transition:
     background-color 250ms ease,
     opacity 250ms ease;
@@ -473,7 +476,7 @@ html.theme-switching *::after {
   .js .svc-slide:not(:nth-child(2)) {
     /* first slide is the 2nd child — the lattice comes first */
     opacity: 0;
-    visibility: hidden;
+    pointer-events: none;
   }
   .js .svc-visual {
     width: 104px;
