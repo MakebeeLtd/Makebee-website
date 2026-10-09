@@ -2,8 +2,7 @@ import Button from '../components/Button.jsx';
 import HexField from '../components/HexField.jsx';
 import ProductShowcase from '../components/ProductShowcase.jsx';
 import Reveal from '../components/Reveal.jsx';
-
-const STUDIE_URL = 'https://studie-frontend.pages.dev/';
+import { STUDIE_URL, studieScreenshot } from '../data/projects.js';
 
 const points = [
   'Mock exams generated with AI',
@@ -44,7 +43,7 @@ export default function FeaturedProduct() {
             </Button>
           </div>
 
-          <ProductShowcase />
+          <ProductShowcase image={studieScreenshot} />
         </Reveal>
       </div>
     </section>

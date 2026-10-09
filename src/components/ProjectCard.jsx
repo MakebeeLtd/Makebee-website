@@ -27,6 +27,7 @@ function ProjectImage({ image }) {
         height={image.height}
         loading="lazy"
         decoding="async"
+        style={image.position ? { objectPosition: image.position } : undefined}
         onLoad={() => setLoaded(true)}
         className={`h-full w-full object-cover transition-[opacity,transform] duration-500 ease-out group-hover:scale-[1.03] motion-reduce:transform-none ${
           loaded ? 'opacity-100' : 'opacity-0'

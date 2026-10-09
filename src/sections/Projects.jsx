@@ -12,8 +12,8 @@ export default function Projects({ items = staticProjects, loading = false }) {
   return (
     <section id="projects" aria-labelledby="projects-title" className="py-20 md:py-24">
       <div className="wrap">
-        <SectionHeading id="projects-title" kicker="Selected work" title="Recent work and explorations">
-          Our own product, internal builds and concepts. Each card says which is which.
+        <SectionHeading id="projects-title" kicker="Selected work" title="Recent work">
+          Only work you can open and use today.
         </SectionHeading>
 
         <div className="grid gap-[22px] md:grid-cols-2" aria-busy={loading || undefined}>
